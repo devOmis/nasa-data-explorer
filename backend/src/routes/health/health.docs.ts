@@ -1,6 +1,6 @@
 /**
  * @openapi
- * /api/health:
+ * /health:
  *   get:
  *     tags: [Health]
  *     summary: Health check endpoint
