@@ -6,13 +6,13 @@ import type {
 
 import nasaService from './nasa.service';
 
-export const getApod = asyncHandler(async (req, res, next) => {
+export const getApod = asyncHandler(async (req, res, _next) => {
   const query = req.query as ApodQuery;
   const result = await nasaService.fetchApod(query.date);
   res.json({ data: result.data });
 });
 
-export const getNeoFeed = asyncHandler(async (req, res, next) => {
+export const getNeoFeed = asyncHandler(async (req, res, _next) => {
     const query = req.query as unknown as NeoFeedQuery;
 
     const { start_date, end_date} = query;
