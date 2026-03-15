@@ -1,0 +1,22 @@
+[
+  {
+    "path": "/",
+    "label": "Home",
+    "element": "Home"
+  },
+  {
+    "path": "/neo",
+    "label": "NEO",
+    "element": "NEOFeature"
+  },
+  {
+    "path": "/apod",
+    "label": "APOD",
+    "element": "APODFeature"
+  },
+  {
+    "path": "*",
+    "label": null,
+    "element": "NotFound"
+  }
+]
