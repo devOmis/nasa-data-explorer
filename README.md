@@ -35,6 +35,20 @@ frontend/   # React/Vite client application
 
 ---
 
+## Deployment
+
+- **Backend** is hosted on [Render](https://render.com/)
+- **Frontend** is hosted on [Vercel](https://vercel.com/)
+
+---
+
+## About Each Project
+
+- For detailed backend setup, API endpoints, and architecture, see [backend/README.md](backend/README.md)
+- For frontend features, UI, and development notes, see [frontend/README.md](frontend/README.md)
+
+---
+
 ## Setup Instructions
 
 ### Backend
