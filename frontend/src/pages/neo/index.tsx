@@ -55,8 +55,8 @@ export default function NEOFeature() {
   const avgPerDay = days ? (totalNEOs / days).toFixed(1) : 0;
 
   return (
-    <MainLayout>
-      <div className="relative min-h-screen flex flex-col items-center justify-center bg-linear-to-br from-black via-blue-950 to-blue-900 pt-28 pb-16">
+    <MainLayout allowScroll={true}>
+      <div className="relative min-h-screen flex flex-col items-center justify-center bg-linear-to-br from-black via-blue-950 to-blue-900 pt-28 pb-16 px-4">
         {/* Animated/Overlay Title */}
         <div className="absolute top-10 left-0 w-full flex justify-center pointer-events-none select-none z-0">
           <span className="text-[16vw] md:text-[10vw] font-black text-white/5 tracking-tighter">
@@ -65,7 +65,7 @@ export default function NEOFeature() {
         </div>
 
         {/* Live Data Card */}
-        <div className="w-full max-w-md z-10 mb-8">
+        <div className="w-full max-w-md sm:max-w-lg z-10 mb-8">
           <div className="p-6 bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl shadow-lg">
             <div className="flex gap-2 mb-4 items-center">
               <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
@@ -99,8 +99,8 @@ export default function NEOFeature() {
               Search by Date Range
             </CardTitle>
           </CardHeader>
-          <CardContent className="flex gap-2 items-end">
-            <div>
+          <CardContent className="flex flex-col sm:flex-row gap-2 items-stretch sm:items-end">
+            <div className="flex-1">
               <label className="block text-xs mb-1 text-white/60">
                 Start Date
               </label>
@@ -108,9 +108,10 @@ export default function NEOFeature() {
                 type="date"
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
+                className="w-full"
               />
             </div>
-            <div>
+            <div className="flex-1">
               <label className="block text-xs mb-1 text-white/60">
                 End Date
               </label>
@@ -118,10 +119,11 @@ export default function NEOFeature() {
                 type="date"
                 value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
+                className="w-full"
               />
             </div>
             <button
-              className="ml-2 px-4 py-2 rounded bg-blue-600 text-white font-bold shadow hover:bg-blue-700 transition disabled:opacity-50"
+              className="w-full sm:w-auto ml-0 sm:ml-2 px-4 py-2 rounded bg-blue-600 text-white font-bold shadow hover:bg-blue-700 transition disabled:opacity-50"
               onClick={() => refetch()}
               disabled={!startDate || !endDate}
             >

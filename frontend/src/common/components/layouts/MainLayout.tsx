@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 import { useEffect } from "react";
 
-export default function MainLayout({ children }: { children: ReactNode }) {
+export default function MainLayout({ children, allowScroll = false }: { children: ReactNode, allowScroll?: boolean }) {
   const { isLoaded, error, finishLoading } = useAppStatus();
 
   useEffect(() => {
@@ -47,7 +47,10 @@ export default function MainLayout({ children }: { children: ReactNode }) {
   }
 
   return (
-    <div className="relative h-screen w-full bg-[#020202] overflow-hidden text-white font-sans">
+    <div className={
+      `relative min-h-screen w-full bg-[#020202] text-white font-sans` +
+      (allowScroll ? '' : ' overflow-hidden')
+    }>
       {/* Background Starfield */}
       <motion.div
         style={{ x: bgX, y: bgY, backgroundImage: `url('image-todo)` }}
