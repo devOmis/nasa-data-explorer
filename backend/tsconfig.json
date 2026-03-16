@@ -19,7 +19,6 @@
     "types": ["node", "jest"],
     "composite": true,
     "outDir": "dist",
-    "ignoreDeprecations": "6.0",
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]

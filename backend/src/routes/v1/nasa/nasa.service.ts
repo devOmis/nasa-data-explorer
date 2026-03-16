@@ -82,8 +82,30 @@ class NasaService {
     return this.fetchFromNasa("/planetary/apod", { date });
   }
 
-  public fetchNeoFeed(params: NeoFeedQuery) {
-    return this.fetchFromNasa("/neo/rest/v1/feed", params);
+  public async fetchNeoFeed(params: NeoFeedQuery) {
+    // Fetch raw data from NASA
+    const result = await this.fetchFromNasa<any>("/neo/rest/v1/feed", params);
+    const safeData = result.data || { near_earth_objects: {} };
+    // Transform to chartData: [{ date, count }]
+    const chartData = safeData.near_earth_objects
+      ? Object.entries(safeData.near_earth_objects).map(([date, neos]) => ({
+          date,
+          count: Array.isArray(neos) ? neos.length : 0,
+        }))
+      : [];
+
+    const totalNEOs = chartData.reduce((sum, d) => sum + d.count, 0);
+    const days = chartData.length;
+    const avgPerDay = days ? Number((totalNEOs / days).toFixed(1)) : 0;
+
+    return {
+      data: {
+        chartData,
+        totalNEOs,
+        days,
+        avgPerDay,
+      },
+    };
   }
 }
 

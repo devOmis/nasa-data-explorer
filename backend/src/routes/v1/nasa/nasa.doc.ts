@@ -41,11 +41,11 @@
  *           example: "2024-01-07"
  *     responses:
  *       200:
- *         description: NEO feed
+ *         description: NEO feed (processed for chart)
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/NeoFeedResponse"
+ *               $ref: "#/components/schemas/NeoFeedChartResponse"
  */
 
 /**
@@ -76,20 +76,32 @@
  *               type: string
  *               format: uri
  *
- *     NeoFeedResponse:
+ *     NeoFeedChartResponse:
  *       type: object
  *       properties:
  *         data:
  *           type: object
  *           properties:
- *             element_count:
+ *             chartData:
+ *               type: array
+ *               description: Array of NEO counts per day
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   date:
+ *                     type: string
+ *                     format: date
+ *                   count:
+ *                     type: integer
+ *             totalNEOs:
  *               type: integer
- *             near_earth_objects:
- *               type: object
- *               additionalProperties:
- *                 type: array
- *                 items:
- *                   $ref: "#/components/schemas/NeoObject"
+ *               description: Total NEOs in the date range
+ *             days:
+ *               type: integer
+ *               description: Number of days in the range
+ *             avgPerDay:
+ *               type: number
+ *               description: Average NEOs per day
  *
  *     NeoObject:
  *       type: object

@@ -19,8 +19,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { useQuery } from "@tanstack/react-query";
-import { fetchNeoFeed } from "@/services/nasa";
+import { useNeoFeedQuery } from "@/services/nasa";
 
 export default function NEOFeature() {
   const [startDate, setStartDate] = useState(() => {
@@ -32,27 +31,13 @@ export default function NEOFeature() {
     () => new Date().toISOString().split("T")[0],
   );
 
-  const { data, isLoading, error, refetch } = useQuery({
-    queryKey: ["neo", startDate, endDate],
-    queryFn: () => fetchNeoFeed(startDate, endDate),
-    enabled: !!startDate && !!endDate,
-    retry: 1,
-    staleTime: 1000 * 60 * 5,
-  });
+  const { data, isLoading, error, refetch } = useNeoFeedQuery({ start_date: startDate, end_date: endDate });
 
-  // Transform API data to chart format: [{ date, count }]
-  const safeData = data || { near_earth_objects: {} };
-  const chartData = safeData.near_earth_objects
-    ? Object.entries(safeData.near_earth_objects).map(([date, neos]) => ({
-        date,
-        count: Array.isArray(neos) ? neos.length : 0,
-      }))
-    : [];
-
-  // Calculate summary stats for live card
-  const totalNEOs = chartData.reduce((sum, d) => sum + d.count, 0);
-  const days = chartData.length;
-  const avgPerDay = days ? (totalNEOs / days).toFixed(1) : 0;
+  // Use processed chart data and stats from backend
+  const chartData = data?.chartData || [];
+  const totalNEOs = data?.totalNEOs ?? 0;
+  const days = data?.days ?? 0;
+  const avgPerDay = data?.avgPerDay ?? 0;
 
   return (
     <MainLayout allowScroll={true}>
